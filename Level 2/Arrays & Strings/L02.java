@@ -207,7 +207,215 @@ public class L02{
     }
 
     // leetcode 670 ->  https://leetcode.com/problems/maximum-swap/
-    //max swap
-    //best meeting
-    //chunks 2
+    public int maximumSwap(int num) {
+        char[] nums = Integer.toString(num).toCharArray();
+        int[] lastIdx = new int[10]; // make array of digits jo contain krega last index jaha vo digit mila tha
+        for(int i = 0; i < nums.length ; i++){
+            lastIdx[nums[i]-'0'] = i;
+        }
+        
+        for(int i = 0 ; i < nums.length; i++){
+            int digit = nums[i] -'0';
+            boolean flag = true;
+            for(int j = 9; j > digit; j--){
+                if( lastIdx[j] > i){ // check kra 9 se lekar ith digit se bado mai agar koi bhi baad mai h toh use swap krlo
+                    char temp = nums[i];
+                    nums[i] = nums[lastIdx[j]];
+                    nums[lastIdx[j]] = temp;
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag == false){
+                break;
+            }
+        }
+         int nbr = 0;
+         for(int i = 0; i < nums.length;i++) // toform number
+             nbr = nbr*10+(nums[i]-'0');
+        
+        return nbr;
+    }
+    
+    //****************************** 19 SEPTEMBER ***********************************
+    // 2 Sum - Target Sum Unique Pairs: https://classroom.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/arrays-and-strings/2-sum-target-sum-unique-pairs/ojquestion
+
+    public static List<List<Integer>> twoSum(int[] arr, int target) {
+        // write your code here
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(arr);
+        int i = 0;
+        int j = arr.length -1;
+        while(i < j){
+            if(i != 0 && arr[i] == arr[i-1]){
+                i++;
+                continue;
+            }
+            if(arr[i] + arr[j] == target){
+                List<Integer> ans = new ArrayList<>();
+                ans.add(arr[i]);
+                ans.add(arr[j]);
+                result.add(ans);
+                i++;
+                j--;
+            }else if(arr[i] + arr[j] > target){
+                j--;
+            }else{
+                i++;
+            }
+        }
+        return result;
+      }
+    
+
+    // 3 Sum - Target Sum Unique Triplet: https://classroom.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/arrays-and-strings/3-sum-target-sum-unique-triplet/ojquestion
+    //LEETCODE 15 : 3 Sum : https://leetcode.com/problems/3sum/
+
+    public List<List<Integer>> twoSum(int[] nums,int target, int st){
+        List<List<Integer>> res = new ArrayList<>();
+        int i = st;
+        int j = nums.length-1;
+        while(i < j){
+            if(i != st && nums[i] == nums[i-1]){
+                i++;
+                continue;
+            }
+            int sum = nums[i] + nums[j];
+            if(sum == target){
+                List<Integer> list = new ArrayList<>();
+                list.add(nums[i]);
+                list.add(nums[j]);
+                res.add(list);
+                i++;
+                j--;
+            }else if( sum > target){
+                j--;
+            }else{
+                i++;
+            }
+        }
+        return res;
+    }
+    
+    public List<List<Integer>> threeSum_(int[] nums,int target){
+        int n = nums.length;
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        
+        for(int i =0; i <= n-3;i++){
+           int val1 = nums[i];
+            
+            if(i != 0  && nums[i] == nums[i-1]){
+                continue;
+            }
+            
+            List<List<Integer>> subRes = twoSum(nums,target-val1,i+1);
+            for(List<Integer> list: subRes){
+                list.add(val1);
+                res.add(list);
+            }
+        }
+        return res;
+    }
+    
+    public List<List<Integer>> threeSum(int[] nums) {
+        return threeSum_(nums,0);
+    }
+
+    //4 Sum - Target Sum With Unique Quadruple :https://classroom.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/arrays-and-strings/4-sum-target-sum-with-unique-quadruple/ojquestion
+    //LEETCODE 18 : 4 sum : https://leetcode.com/problems/4sum/
+    public List<List<Integer>> twoSum(int[] nums,int target, int st){
+        List<List<Integer>> res = new ArrayList<>();
+        int i = st;
+        int j = nums.length-1;
+        while(i < j){
+            if(i != st && nums[i] == nums[i-1]){
+                i++;
+                continue;
+            }
+            int sum = nums[i] + nums[j];
+            if(sum == target){
+                List<Integer> list = new ArrayList<>();
+                list.add(nums[i]);
+                list.add(nums[j]);
+                res.add(list);
+                i++;
+                j--;
+            }else if( sum > target){
+                j--;
+            }else{
+                i++;
+            }
+        }
+        return res;
+    }
+    
+    public List<List<Integer>> threeSum_(int[] nums,int target,int st){
+        int n = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
+        
+        for(int i = st; i <= n-3;i++){
+           int val1 = nums[i];
+            
+            if(i != st  && nums[i] == nums[i-1]){
+                continue;
+            }
+            
+            List<List<Integer>> subRes = twoSum(nums,target-val1,i+1);
+            for(List<Integer> list: subRes){
+                list.add(val1);
+                res.add(list);
+            }
+        }
+        return res;
+    }
+    
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        
+        for(int i = 0; i <= n-4;i++){
+           int val1 = nums[i];
+            
+            if(i != 0  && nums[i] == nums[i-1]){
+                continue;
+            }
+            
+            List<List<Integer>> subRes = threeSum_(nums,target-val1,i+1);
+            for(List<Integer> list: subRes){
+                list.add(val1);
+                res.add(list);
+            }
+        }
+        return res;
+    }
+   
+    //KSum : https://classroom.pepcoding.com/resources/data-structures-and-algorithms-in-java-levelup/arrays-and-strings/k-sum-target-sum-unique-set/ojquestion
+    public static List<List<Integer>> KSum_(int[] nums,int target,int st,int k){
+        if(k == 2){
+            return twoSum(nums,target,st);
+         }
+        int n = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
+        
+        for(int i = st; i <= n-k ;i++){
+           int val1 = nums[i];
+            
+            if(i != st  && nums[i] == nums[i-1]){
+                continue;
+            }
+            
+            List<List<Integer>> subRes = KSum_(nums,target-val1,i+1,k-1);
+            for(List<Integer> list: subRes){
+                list.add(val1);
+                res.add(list);
+            }
+        }
+        return res;
+    }
+  public static List<List<Integer>> kSum(int[] nums, int target, int k) {
+    Arrays.sort(nums);
+    return KSum_(nums,target,0,k);
+    }
 }
