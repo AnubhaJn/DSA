@@ -418,4 +418,40 @@ public class L02{
     Arrays.sort(nums);
     return KSum_(nums,target,0,k);
     }
+
+    //LEETCODE 537 : https://leetcode.com/problems/complex-number-multiplication/submissions/
+    public String complexNumberMultiply(String num1, String num2) {
+        int a1 = Integer.parseInt(num1.substring(0,num1.indexOf("+")));
+        int b1 = Integer.parseInt(num1.substring(num1.indexOf("+")+1, num1.length()-1 ));
+        
+        int a2 = Integer.parseInt(num2.substring(0,num2.indexOf("+")));
+        int b2 = Integer.parseInt(num2.substring(num2.indexOf("+")+1, num2.length()-1));
+        
+        int real = a1*a2 - b1*b2;
+        int imaginary = a1*b2 + a2 *b1;
+        return real +"+"+imaginary+"i";
+    }
+
+    // GFG : Minimum platform : https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1#
+    public static int findPlatform(int arr[], int dep[], int n)
+    {
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+        int i= 0 ,j= 0;
+        int max = 0;
+        int platform = 0;
+        
+        while(i < n){
+            if(arr[i] <= dep[j]){
+               i++;
+               platform ++;    
+            }else{
+                j++;
+                platform-- ;
+            }
+            max = Math.max(max,platform);
+        }
+        return max;
+    }
+
 }
