@@ -454,4 +454,22 @@ public class L02{
         return max;
     }
 
+    // GFG : Find Pair Given Difference: https://practice.geeksforgeeks.org/problems/find-pair-given-difference1559/1
+    public boolean findPair(int arr[], int size, int n)
+    {
+        Arrays.sort(arr);
+        int i = 0;
+        int j = 1;
+        while( i < size && j < size ){
+            if(i != j && arr[j] - arr[i] == n){
+                return true;
+            }else if( arr[j] - arr[i] > n){
+                i++;
+            }else{
+                j++;
+            }
+        }
+        return false;
+    }
+
 }
