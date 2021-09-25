@@ -177,6 +177,39 @@ public class L02{
     }
 
     //LINTCODE 912 -> BEST MEEING POINT -> https://www.lintcode.com/problem/912/
+    public static int minTotalDistance(int[][] grid) {
+        // Write your code here
+        ArrayList<Integer> xcord = new ArrayList<>();
+        for (int i = 0; i < grid.length ; i++) {
+          for (int j = 0; j < grid[0].length ; j++) {
+            if (grid[i][j] == 1) {
+              xcord.add(i);
+            }
+          }
+        }
+        ArrayList<Integer> ycord = new ArrayList<>();
+        for (int j = 0; j  < grid[0].length ; j++) {
+          for (int i = 0; i < grid.length ; i++) {
+            if (grid[i][j] == 1) {
+              ycord.add(j);
+            }
+          }
+        }
+    
+    
+        int x = xcord.get(xcord.size() / 2);
+        int y = ycord.get(ycord.size() / 2);
+    
+        int dist = 0;
+        for (int i = 0; i < xcord.size(); i++) {
+          dist += Math.abs(x - xcord.get(i));
+        }
+    
+        for (int i = 0; i < ycord.size(); i++) {
+          dist += Math.abs(y - ycord.get(i));
+        }
+        return dist;
+      }
 
     //LEETCODE 41 -> https://leetcode.com/problems/first-missing-positive/\
     public int firstMissingPositive(int[] nums) {
